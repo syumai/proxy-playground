@@ -3,3 +3,4 @@ hey -c 100 -n 100000 -m GET 'http://localhost:18001/?name=hey' > ./tmp/hey-deno.
 hey -c 100 -n 100000 -m GET 'http://localhost:18002/?name=hey' > ./tmp/hey-node.txt
 hey -c 100 -n 100000 -m GET 'http://localhost:18003/?name=hey' > ./tmp/hey-workerd.txt
 hey -c 100 -n 100000 -m GET 'http://localhost:18004/?name=hey' > ./tmp/hey-bun.txt
+hey -c 100 -n 100000 -m GET 'http://localhost:18011/?name=hey' > ./tmp/hey-go.txt
