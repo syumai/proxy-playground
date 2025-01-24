@@ -1,0 +1,28 @@
+{
+  "name": "@syumai/proxy-playground",
+  "version": "0.1.0",
+  "main": "index.js",
+  "engines": {
+    "node": ">=23.6.0"
+  },
+  "scripts": {
+    "build": "npm run build-deno && npm run build-workerd && npm run build-bun",
+    "build-deno": "deno compile --allow-net --allow-env=PORT --output ./dist/deno ./deno/index.ts",
+    "build-workerd": "esbuild --bundle --format=esm --outfile=./workerd/worker.mjs ./src/app.ts && workerd compile ./workerd/config.capnp > ./dist/workerd",
+    "build-bun": "bun build ./bun/index.ts --compile --outfile ./dist/bun",
+    "start": "concurrently \"deno run --allow-net ./deno/origin.ts\" \"node ./node/index.ts\" \"deno run --allow-net --allow-env=PORT ./deno/index.ts\" \"bun run ./bun/index.ts\" \"workerd serve ./workerd/config.capnp\""
+  },
+  "author": "syumai",
+  "license": "MIT",
+  "type": "module",
+  "dependencies": {
+    "@hono/node-server": "^1.13.7",
+    "hono": "^4.6.18"
+  },
+  "devDependencies": {
+    "concurrently": "^9.1.2",
+    "esbuild": "^0.24.2",
+    "workerd": "^1.20250124.3"
+  },
+  "packageManager": "pnpm@9.15.4+sha512.b2dc20e2fc72b3e18848459b37359a32064663e5627a51e4c74b2c29dd8e8e0491483c3abb40789cfd578bf362fb6ba8261b05f0387d76792ed6e23ea3b1b6a0"
+}
